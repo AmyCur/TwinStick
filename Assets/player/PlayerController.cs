@@ -3,10 +3,16 @@ using UnityEngine;
 
 namespace Player{
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : EntityController
+    public sealed class PlayerController : EntityController
     {
-        public static PlayerController instance;
+        public static PlayerController instance
+        {
+            get{return GameObject.Find("Player").GetComponent<PlayerController>();}
+            private set{}
+        }
         Rigidbody rb;
+
+        public Directions lookDirection;
 
         [Header("Movement")]
 
@@ -15,10 +21,7 @@ namespace Player{
         public float speed = 12f;
         bool canMoveXY => canMoveX || canMoveY;
 
-        public int[] lookDirection = {0, 0};
-
         void Start(){
-            if(instance==null) instance=this;
             rb=GetComponent<Rigidbody>();
         }
 
@@ -26,14 +29,35 @@ namespace Player{
             float vInp = canMoveY ? Input.GetAxisRaw("Vertical") : 0;
             float hInp = canMoveY ? Input.GetAxisRaw("Horizontal") : 0;
 
-            lookDirection[0]=Mathf.FloorToInt(vInp);
-            lookDirection[1]=Mathf.FloorToInt(hInp);
 
             rb.linearVelocity=new(hInp*speed, rb.linearVelocity.y, vInp*speed);
         }
 
-        void Update(){
+        Directions DetermineLookDirection(){
+            
+            if(Input.GetAxisRaw("Horizontal") == 1){
+                return Directions.right;
+            }
+            if(Input.GetAxisRaw("Horizontal") == -1){
+                return Directions.left;
+            }
+            if(Input.GetAxisRaw("Vertical") == -1){
+                return Directions.down;
+            }
+            if(Input.GetAxisRaw("Vertical") == 1){
+                return Directions.up;
+            }
+
+            // If nothings pressed, dont change anything
+            return lookDirection;
+        }
+
+        void FixedUpdate(){
             if(canMoveXY) Move();
+        }
+
+        void Update(){
+            lookDirection=DetermineLookDirection();
         }
     }
 }

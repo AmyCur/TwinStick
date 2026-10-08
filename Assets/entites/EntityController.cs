@@ -8,6 +8,9 @@ namespace Entities
 
         public void TakeDamage(float damage){
             health-=damage;
+            if(health <= 0) Die();
         }
+
+        public virtual void Die() => GameObject.Destroy(gameObject);
     }    
 }

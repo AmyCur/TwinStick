@@ -10,11 +10,15 @@ namespace Combat
         [SerializeField] float attackOutRegion=3f;
 
         public override void OnAttack(){
-            int[] lookDirection = PlayerController.instance.lookDirection;
+            Directions lookDirection = PlayerController.instance.lookDirection;
+
+            float horizontalMult = lookDirection == Directions.left ? -1 : lookDirection == Directions.right ? 1 : 0;
+            float verticalMult = lookDirection == Directions.down ? -1 : lookDirection == Directions.up ? 1 : 0;
+
             CombatUtil.CreateDamageBox(
                 damage,
                 attackSize, 
-                PlayerController.instance.transform.position+new Vector3(lookDirection[1]*attackOutRegion,0,lookDirection[0]*attackOutRegion)
+                PlayerController.instance.transform.position+new Vector3(horizontalMult*attackOutRegion,0,verticalMult*attackOutRegion)
             );
         }
     }

@@ -28,13 +28,13 @@ namespace Combat{
             if(dimensions is Vector3 v3){ 
                 colliders = Physics.OverlapBox(position, v3, Quaternion.identity).ToList();
                 if (CombatDebug.shouldDrawHurtBoxes){
-                    CreateDamageDebugBox(v3, position, CombatDebug.hurtBoxLingerTime);
+                    CreateDamageDebugBox(v3, position, CombatDebug.HURTBOXLINGERTIME);
                 }
             }
             else if(dimensions is float f) {
                 colliders= Physics.OverlapBox(position, new(f,f,f), Quaternion.identity).ToList();
                 if (CombatDebug.shouldDrawHurtBoxes){
-                    CreateDamageDebugBox(new(f,f,f), position, CombatDebug.hurtBoxLingerTime);
+                    CreateDamageDebugBox(new(f,f,f), position, CombatDebug.HURTBOXLINGERTIME);
                     
                 }
             }
