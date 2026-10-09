@@ -6,7 +6,7 @@ namespace Entities
     {
         public float health;
 
-        public void TakeDamage(float damage){
+        public virtual void TakeDamage(float damage){
             health-=damage;
             if(health <= 0) Die();
         }

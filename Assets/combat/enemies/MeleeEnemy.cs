@@ -6,12 +6,14 @@ namespace Combat{
     [RequireComponent(typeof(NavMeshAgent))]
     public class MeleeEnemy : EnemyController{
         
-        public NavMeshAgent navAgent;
+        [HideInInspector] public NavMeshAgent navAgent;
         
         public override void Attack()
         {
             base.Attack();
-            throw new System.NotImplementedException();
+
+            navAgent.destination=transform.position;
+            PlayerController.instance.TakeDamage(damage);
         }
         public override void Chase()
         {

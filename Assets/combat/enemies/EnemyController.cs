@@ -12,15 +12,17 @@ namespace Combat{
 
         protected bool shouldAttack => canAttack && PlayerInRange();
         protected bool shouldChase => canChase && !shouldAttack;
+
+        public float damage=10f;
         
         [SerializeField] protected float attackRange=5f;
 
         protected bool PlayerInRange(){
-            if(Physics.Raycast(transform.position, GameObject.Find("Player").transform.position-transform.position,out RaycastHit hit, attackRange)){
-                return hit.distance>=attackRange;
-            }
 
-            return false;
+            //! WARNING: Using this approach, enemies can shoot through walls
+            return Vector3.Distance(transform.position, GameObject.Find("Player").transform.position) <= attackRange;
+                
+         
         }
 
         async void DecideState(){

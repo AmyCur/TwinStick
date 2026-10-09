@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Entities;
 using UnityEngine;
 
@@ -21,6 +22,12 @@ namespace Player{
         public float speed = 12f;
         bool canMoveXY => canMoveX || canMoveY;
 
+        [Header("Iframes")]
+
+        public int IframeTime=500;
+        [SerializeField] bool iframeOver;
+
+
         void Start(){
             rb=GetComponent<Rigidbody>();
         }
@@ -29,27 +36,28 @@ namespace Player{
             float vInp = canMoveY ? Input.GetAxisRaw("Vertical") : 0;
             float hInp = canMoveY ? Input.GetAxisRaw("Horizontal") : 0;
 
-
             rb.linearVelocity=new(hInp*speed, rb.linearVelocity.y, vInp*speed);
         }
 
         Directions DetermineLookDirection(){
             
-            if(Input.GetAxisRaw("Horizontal") == 1){
-                return Directions.right;
-            }
-            if(Input.GetAxisRaw("Horizontal") == -1){
-                return Directions.left;
-            }
-            if(Input.GetAxisRaw("Vertical") == -1){
-                return Directions.down;
-            }
-            if(Input.GetAxisRaw("Vertical") == 1){
-                return Directions.up;
-            }
+            if(Input.GetAxisRaw("Horizontal") == 1) return Directions.right;
+            if(Input.GetAxisRaw("Horizontal") == -1) return Directions.left;
+            if(Input.GetAxisRaw("Vertical") == -1) return Directions.down;
+            if(Input.GetAxisRaw("Vertical") == 1) return Directions.up;
 
             // If nothings pressed, dont change anything
             return lookDirection;
+        }
+
+        public override async void TakeDamage(float damage)
+        {
+            if(iframeOver){
+                base.TakeDamage(damage);
+                iframeOver=false;
+                await Task.Delay(IframeTime);
+                iframeOver=true;
+            }
         }
 
         void FixedUpdate(){
