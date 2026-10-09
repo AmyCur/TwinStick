@@ -7,5 +7,7 @@ namespace GameDebug
 
         public static bool shouldDrawEnemyAttackRays=true;
         public static bool enemiesShouldBroadcastState=true;
+
+        public static bool logGrounded=false;
     }
 }

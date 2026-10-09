@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Entities;
+using Events;
 using GameDebug;
 using Player;
 using UnityEngine;
@@ -23,6 +24,17 @@ namespace Combat{
             return Vector3.Distance(transform.position, GameObject.Find("Player").transform.position) <= attackRange;
                 
          
+        }
+
+        public override void TakeDamage(float damage){
+            CombatEventManager.instance.enemyDamaged.Invoke();
+            base.TakeDamage(damage);
+        }
+
+        public override void Die()
+        {
+            CombatEventManager.instance.enemyKilled.Invoke();
+            base.Die();
         }
 
         async void DecideState(){

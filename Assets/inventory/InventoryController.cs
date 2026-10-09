@@ -16,31 +16,31 @@ namespace Inventory{
         }
 
         // 3x3 for 9 total
-        public UIItem[] inventory = {null,null,null,null,null,null,null,null,null};
+        public UIRelic[] relicInventory = {null,null,null,null,null,null,null,null,null};
 
         [Header("Utility Button Parameters")]
-        public UIItem itemToAdd;
+        public UIRelic itemToAdd;
         public int indexToChange;
         public ButtonPurpose purpose;
 
 
         public void AddItem(Item item, int index){
-            if(inventory[index].item.itemName == "") inventory[index].item = item;
+            if(relicInventory[index].item.itemName == "") relicInventory[index].item = item;
         }
 
         public void RemoveItem(int index){
-            if(inventory[index] != null) inventory[index].item = null;
+            if(relicInventory[index] != null) relicInventory[index].item = null;
         }
 
         public void SwapItems(int i1, int i2){
-            Item it1 = inventory[i1].item;
-            Item it2 = inventory[i2].item;
-            inventory[i1].item = it2;
-            inventory[i2].item = it1;
+            Item it1 = relicInventory[i1].item;
+            Item it2 = relicInventory[i2].item;
+            relicInventory[i1].item = it2;
+            relicInventory[i2].item = it1;
         }
 
         public void UpdateIcons(){
-            foreach(UIItem item in inventory){
+            foreach(UIRelic item in relicInventory){
                 Image itemImg = item.sceneObj.transform.GetChild(0).GetComponent<Image>();
                 itemImg.sprite=item.sprite;
                 itemImg.enabled = itemImg.sprite!=null;

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Combat;
+using Events;
+using GameDebug;
 using Unity.Collections;
 using UnityEngine;
 
-namespace Player
-{
+namespace Player{
     public class JumpingController : MonoBehaviour{
 
         [Header("Grounded")]
@@ -22,10 +23,10 @@ namespace Player
         public bool Grounded(){
             if(Physics.Raycast(transform.position, Vector3.down, groundedDistance, ~playerMask))
             {
-                Debug.Log("Grounded");
+                if(CombatDebug.logGrounded) Debug.Log("Grounded");
                 return true;
             }
-            Debug.Log("Not Grounded");
+           if(CombatDebug.logGrounded) Debug.Log("Not Grounded");
             return false;
         }
 
@@ -43,6 +44,7 @@ namespace Player
                 foreach(Collider col in belowObjects){
                     if(col.GetComponent<EnemyController>() && !enemiesFlippedOver.Contains(col)){
                         enemiesFlippedOver.Add(col);
+                        CombatEventManager.instance.enemyJumped.Invoke();
                         Debug.Log($"Flipped over {col.name}");
                     }
                 }

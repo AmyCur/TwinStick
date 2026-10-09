@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Entities;
+using Events;
 using UnityEngine;
 
 namespace Player{
@@ -53,11 +54,18 @@ namespace Player{
         public override async void TakeDamage(float damage)
         {
             if(iframeOver){
+                CombatEventManager.instance.playerDamaged.Invoke();
                 base.TakeDamage(damage);
                 iframeOver=false;
                 await Task.Delay(IframeTime);
                 iframeOver=true;
             }
+        }
+
+        public override void Die()
+        {
+            CombatEventManager.instance.playerKilled.Invoke();
+            base.Die();
         }
 
         void FixedUpdate(){

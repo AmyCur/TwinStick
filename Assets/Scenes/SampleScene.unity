@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &125797733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125797735}
+  - component: {fileID: 125797734}
+  m_Layer: 0
+  m_Name: CombatEventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &125797734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125797733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fe27d1ab7df3142a14f3ed75642068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Events.CombatEventManager
+--- !u!4 &125797735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125797733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 458.2278, y: 688.0044, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &149822070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,55 +1153,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.InventoryController
   inventory:
-  - item:
-      itemName: ermmmmm awkward
-      itemDescription: cool tester
+  - item: {fileID: 11400000, guid: f29d843444e7c3e40b0a8fda09c4952d, type: 2}
     sceneObj: {fileID: 800076782}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 1278669281}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 1689147560}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 190338130}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 1886633784}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 1731236477}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 149822072}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 163470815}
     sprite: {fileID: 0}
-  - item:
-      itemName: 
-      itemDescription: 
+  - item: {fileID: 0}
     sceneObj: {fileID: 1669240144}
     sprite: {fileID: 0}
   itemToAdd:
-    item:
-      itemName: ermmmmm awkward
-      itemDescription: cool tester
+    item: {fileID: 0}
     sceneObj: {fileID: 0}
     sprite: {fileID: 0}
   indexToChange: 0
@@ -8910,3 +8934,4 @@ SceneRoots:
   - {fileID: 1231496677}
   - {fileID: 1863689727}
   - {fileID: 1176335715}
+  - {fileID: 125797735}
