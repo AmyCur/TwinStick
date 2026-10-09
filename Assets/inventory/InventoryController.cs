@@ -1,58 +1,27 @@
-using System.Collections.Generic;
+using Combat;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 namespace Inventory{
+    public class InventoryController : MonoBehaviour{
+        public Inventory<Relic> relicInventory;
+        public Inventory<Attack> weaponInventory;
 
-    public enum ButtonPurpose{
-        add,
-        remove
-    }
-
-    public class InventoryController : MonoBehaviour
-    {
-        public static InventoryController instance
-        {
-            get{return GameObject.Find("Player").GetComponent<InventoryController>();}
-        }
-
-        // 3x3 for 9 total
-        public UIRelic[] relicInventory = {null,null,null,null,null,null,null,null,null};
-
-        [Header("Utility Button Parameters")]
-        public UIRelic itemToAdd;
-        public int indexToChange;
-        public ButtonPurpose purpose;
-
-
-        public void AddItem(Item item, int index){
-            if(relicInventory[index].item.itemName == "") relicInventory[index].item = item;
-        }
-
-        public void RemoveItem(int index){
-            if(relicInventory[index] != null) relicInventory[index].item = null;
-        }
-
-        public void SwapItems(int i1, int i2){
-            Item it1 = relicInventory[i1].item;
-            Item it2 = relicInventory[i2].item;
-            relicInventory[i1].item = it2;
-            relicInventory[i2].item = it1;
-        }
-
-        public void UpdateIcons(){
-            foreach(UIRelic item in relicInventory){
-                Image itemImg = item.sceneObj.transform.GetChild(0).GetComponent<Image>();
-                itemImg.sprite=item.sprite;
-                itemImg.enabled = itemImg.sprite!=null;
+        void GetClickedData(){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out RaycastHit hit, 10_000)){
+                Debug.Log(hit.collider.name);
             }
         }
 
-        void Start()
-        {
-            UpdateIcons();
+
+        void Update(){
+            if(Input.GetKeyDown(KeyCode.Mouse0)) GetClickedData();
         }
 
-
-     
+        void Start(){
+            relicInventory.UpdateUI();
+            weaponInventory.UpdateUI();
+        }
     }
 }
