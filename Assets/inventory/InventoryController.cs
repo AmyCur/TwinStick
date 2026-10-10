@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Inventory{
-    public class InventoryController : MonoBehaviour{
+    public sealed class InventoryController : Singleton<InventoryController>{
+
         public Inventory<Relic> relicInventory;
         public Inventory<Attack> weaponInventory;
 

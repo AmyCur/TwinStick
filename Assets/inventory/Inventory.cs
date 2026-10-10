@@ -47,5 +47,9 @@ namespace Inventory{
         public void Toggle(){
             sceneObject.SetActive(!sceneObject.activeInHierarchy);
         }
+
+        public void SlotClicked(int i){
+            
+        }
     }
 }
