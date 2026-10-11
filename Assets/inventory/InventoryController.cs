@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 namespace Inventory{
     public sealed class InventoryController : Singleton<InventoryController>{
 
+        [Header("Inventories")]
         public Inventory<Relic> relicInventory;
         public Inventory<Attack> weaponInventory;
 
@@ -16,17 +17,15 @@ namespace Inventory{
                         r.OnTrigger();
                     }
                 }
-                
             }
         }
 
-        void Update(){
-          
-        }
-
-        void Start(){
+        void UpdateInventories(){
             relicInventory.UpdateUI();
             weaponInventory.UpdateUI();
         }
+
+        void Start() => UpdateInventories();
+        void OnValidate() => UpdateInventories();
     }
 }

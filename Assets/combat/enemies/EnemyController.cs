@@ -32,7 +32,7 @@ namespace Combat{
         }
 
         public override void TakeDamage(float damage){
-            InventoryController.instance.HandleTrigger(TriggerCondition.enemy_damaged);
+            InventoryController.Instance.HandleTrigger(TriggerCondition.enemy_damaged);
             Debug.Log("Hillo");
             base.TakeDamage(damage);
         }

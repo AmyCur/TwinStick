@@ -16,4 +16,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   triggerCondition: 1
   forceTriggerSlots:
-  - -1
+  - 3

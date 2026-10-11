@@ -18,13 +18,16 @@ namespace Inventory{
                 amount*=mult;
                 return index+amount;
             }
+
+            //! DO NOT PUT A LOOP HERE IT WILL CAUSE A MEMORY LEAK FOR SOME REASON
+           
             
         }
 
         public override void OnTrigger(){
             foreach(string str in forceTriggerSlots){
                 int index = ReadForceTriggerSlot(str);
-                Relic[] invRelic = InventoryController.instance.relicInventory.inventory;
+                Relic[] invRelic = InventoryController.Instance.relicInventory.inventory;
                 if(index <= invRelic.Length && index>=0 && invRelic[index]!=null) invRelic[index].ForceTrigger();
             }
         }
