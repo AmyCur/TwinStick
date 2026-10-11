@@ -40,7 +40,7 @@ namespace Inventory{
         public void UpdateUI(){
             for(int i = 0; i < sceneSlots.Length; i++){
                 Image spriteImage = sceneSlots[i].transform.GetChild(0).GetComponent<Image>();
-                spriteImage.sprite = inventory[i].sprite;
+                // spriteImage.sprite = inventory[i].sprite;
             }
         }
 

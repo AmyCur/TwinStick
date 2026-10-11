@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 125797735}
-  - component: {fileID: 125797734}
   m_Layer: 0
   m_Name: CombatEventManager
   m_TagString: Untagged
@@ -136,38 +135,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &125797734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125797733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72fe27d1ab7df3142a14f3ed75642068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Events.CombatEventManager
-  enemyKilled:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  enemyDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerKilled:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  enemyJumped:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
 --- !u!4 &125797735
 Transform:
   m_ObjectHideFlags: 0
@@ -775,8 +742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.InventoryController
   relicInventory:
     inventory:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 3181daf6e1f15a649afa7f53af76f90d, type: 2}
+    - {fileID: 11400000, guid: bb19e62dc3406eb438a2fd1d5465b3a9, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

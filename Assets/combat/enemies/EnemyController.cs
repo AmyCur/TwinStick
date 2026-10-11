@@ -1,8 +1,11 @@
 using System.Threading.Tasks;
 using Entities;
 using GameDebug;
+using Inventory;
 using Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 namespace Combat{
     public abstract class EnemyController : EntityController{
@@ -12,6 +15,9 @@ namespace Combat{
 
         protected bool shouldAttack => canAttack && PlayerInRange();
         protected bool shouldChase => canChase && !shouldAttack;
+
+
+
 
         public float damage=10f;
         
@@ -26,6 +32,8 @@ namespace Combat{
         }
 
         public override void TakeDamage(float damage){
+            InventoryController.instance.HandleTrigger(TriggerCondition.enemy_damaged);
+            Debug.Log("Hillo");
             base.TakeDamage(damage);
         }
 

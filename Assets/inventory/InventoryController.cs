@@ -1,5 +1,6 @@
 using Combat;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Inventory{
@@ -8,16 +9,19 @@ namespace Inventory{
         public Inventory<Relic> relicInventory;
         public Inventory<Attack> weaponInventory;
 
-        void GetClickedData(){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit hit, 10_000)){
-                Debug.Log(hit.collider.name);
+        public void HandleTrigger(TriggerCondition condition){
+            foreach(Relic r in relicInventory.inventory){
+                if (r != null){
+                    if (r.triggerCondition == condition && !r.cooldown.onCD){
+                        r.OnTrigger();
+                    }
+                }
+                
             }
         }
 
-
         void Update(){
-            if(Input.GetKeyDown(KeyCode.Mouse0)) GetClickedData();
+          
         }
 
         void Start(){
