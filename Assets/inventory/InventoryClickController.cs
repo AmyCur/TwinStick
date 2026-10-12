@@ -25,23 +25,18 @@ namespace Inventory{
 
         public void HandleSlotClicked(int index, Type inventoryType) => HandleSlotClicked(new(index,inventoryType));
 
-        // TODO this!!! figure out how to easily reference the correct inventory without having to call an if every time
-        dynamic Inventory<T>(){
-            if(typeof(T) == typeof(Relic)) return InventoryController.Instance.relicInventory;
-            if(typeof(T) == typeof(Attack)) return InventoryController.Instance.weaponInventory;
-            else return null;
-        }
-
-
         public void HandleSlotClicked(InventoryClickedData clickedItem){
             if(debugSlotClicked) Debug.Log($"Slot {clickedItem.index} has been clicked in the {clickedItem.type} array");
 
+            if(clickedItem.type==typeof(Relic)) clickedItem.item=InventoryController.Instance.relicInventory.inventory[clickedItem.index];
+            if(clickedItem.type==typeof(Attack)) clickedItem.item=InventoryController.Instance.weaponInventory.inventory[clickedItem.index];
+
             if(currentlyClickedItem==null){
-                PickupItem(clickedItem);
+                if(clickedItem.type==typeof(Relic) && clickedItem.item!=null) PickupItem(clickedItem);
             }
             else{
                 if (clickedItem.type == typeof(Relic)){
-                    // InventoryController.Instance.relicInventory
+                    
                 }
             }
         }
