@@ -25,7 +25,11 @@ namespace Inventory{
             weaponInventory.UpdateUI();
         }
 
-        void Start() => UpdateInventories();
+        void Start()
+        {
+            relicInventory.Init();
+            weaponInventory.Init();
+        }
         void OnValidate() => UpdateInventories();
     }
 }

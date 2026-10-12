@@ -50,8 +50,16 @@ namespace Inventory{
             sceneObject.SetActive(!sceneObject.activeInHierarchy);
         }
 
-        public void SlotClicked(int i){
-            
+        public void AddSceneSlotData(){
+            for(int i = 0 ; i < sceneSlots.Length; i++){
+                SceneSlotData scd = sceneSlots[i].gameObject.AddComponent<SceneSlotData>();
+                scd.Init(i, typeof(T));
+            }
+        }
+
+        public void Init(){
+            UpdateUI();
+            AddSceneSlotData();
         }
     }
 }

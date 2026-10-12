@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 397912443}
   - component: {fileID: 397912442}
   - component: {fileID: 397912444}
+  - component: {fileID: 397912445}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -759,6 +760,18 @@ MonoBehaviour:
     - {fileID: 0}
     sceneSlots: []
     sceneObject: {fileID: 0}
+--- !u!114 &397912445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397912435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ac4554e4100214ea6ae909f3a880f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory.InventoryClickController
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
