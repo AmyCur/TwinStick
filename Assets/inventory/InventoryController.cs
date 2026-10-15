@@ -8,7 +8,7 @@ namespace Inventory{
 
         [Header("Inventories")]
         public Inventory<Relic> relicInventory;
-        public Inventory<Attack> weaponInventory;
+        public Inventory<Weapon> weaponInventory;
 
         public void HandleTrigger(TriggerCondition condition){
             foreach(Relic r in relicInventory.inventory){

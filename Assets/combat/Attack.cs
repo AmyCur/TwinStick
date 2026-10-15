@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Combat
 {
-    public abstract class Attack : Item
+    public abstract class Weapon : Item
     {
         public float damage;
         public float cooldown;

@@ -20,8 +20,7 @@ namespace Player{
         Rigidbody rb;
 
         public bool Grounded(){
-            if(Physics.Raycast(transform.position, Vector3.down, groundedDistance, ~playerMask))
-            {
+            if(Physics.Raycast(transform.position, Vector3.down, groundedDistance, ~playerMask)){
                 if(CombatDebug.logGrounded) Debug.Log("Grounded");
                 return true;
             }
@@ -34,7 +33,6 @@ namespace Player{
         public float jumpForce;
         
         IEnumerator CalculateFlipPoints(){
-
             List<Collider> enemiesFlippedOver = new();
             Debug.Log("Kickflip");
             yield return new WaitForSeconds(0.1f);

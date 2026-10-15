@@ -42,7 +42,6 @@ namespace Inventory{
                 Image spriteImage = sceneSlots[i].transform.GetChild(0).GetComponent<Image>();
                 spriteImage.sprite = inventory[i]?.sprite != null ? inventory[i].sprite : Resources.Load<Sprite>("nullFallbackSprite");    
                 spriteImage.enabled=inventory[i]!=null;
-                
             }
         }
 

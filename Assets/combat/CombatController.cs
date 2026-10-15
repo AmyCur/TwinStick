@@ -6,16 +6,14 @@ namespace Combat
 {
     public class CombatController : MonoBehaviour{
         
-        public List<Attack> attacks = new();
+        public List<Weapon> attacks = new();
 
         public void Update()    {
-            foreach(Attack atk in attacks)
+            foreach(Weapon atk in attacks)
             {
                 if(!atk.onCD) {
                     // If youre on the ground attack, otherwise youve missed the attack window and have to wait for the CD again
                     if (JumpingController.instance.Grounded()) atk.OnAttack();
-                    
-                    
                     atk.Cooldown();
                 }
             }            
@@ -23,7 +21,7 @@ namespace Combat
 
         void Start()
         {
-            foreach(Attack atk in attacks){
+            foreach(Weapon atk in attacks){
                 atk.onCD=false;
             }
         }

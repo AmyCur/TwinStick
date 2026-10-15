@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Combat
 {
     [CreateAssetMenu(fileName = "New Claw Attack", menuName = "Attacks/Create/Claw Attack")]
-    public class ClawAttack : Attack{
+    public class ClawAttack : Weapon{
         
         [SerializeField] Vector3 attackSize;
         [SerializeField] float attackOutRegion=3f;
