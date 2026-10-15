@@ -6,59 +6,69 @@ using UnityEngine;
 namespace Inventory{
     public class InventoryClickController : Singleton<InventoryClickController>{
 
-        [SerializeField] InventoryClickedData currentlyClickedItem;
+
+        [SerializeField] InventoryClickedData currentlyClickedRelic;
+        [SerializeField] InventoryClickedData currentlyClickedWeapon;
         bool debugSlotClicked = false;
    
         public InventoryController ic => InventoryController.Instance;
 
         public void PickupItem(InventoryClickedData clickedItem){
-            currentlyClickedItem=clickedItem;
-            InventoryController.Instance.UpdateInventories();
+            if(clickedItem.type == typeof(Relic)){
+                currentlyClickedRelic=clickedItem;
+            }
+            if(clickedItem.type == typeof(Weapon)){
+                currentlyClickedWeapon=clickedItem;
+            }
+
+            ic.UpdateInventories();
         }
 
         public void PutDownItem(InventoryClickedData clickedItem){
             if (clickedItem.type == typeof(Relic)){
-                int i1 = currentlyClickedItem.index;
+                int i1 = currentlyClickedRelic.index;
                 int i2 = clickedItem.index;
 
-                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = (Relic)currentlyClickedItem.item;
-                InventoryController.Instance.relicInventory.inventory[i2] = null;
-                
-
+                ic.relicInventory.inventory[clickedItem.index] = (Relic)currentlyClickedRelic.item;
+                ic.relicInventory.inventory[i1] = null;
+                currentlyClickedRelic.item=null;
             }
 
             else if(clickedItem.type == typeof(Weapon)){
-                int i1 = currentlyClickedItem.index;
+                int i1 = currentlyClickedWeapon.index;
                 int i2 = clickedItem.index;
 
-                InventoryController.Instance.weaponInventory.inventory[clickedItem.index] = (Weapon)currentlyClickedItem.item;
-                InventoryController.Instance.weaponInventory.inventory[i2] = null;
+                ic.weaponInventory.inventory[clickedItem.index] = (Weapon)currentlyClickedWeapon.item;
+                ic.weaponInventory.inventory[i1] = null;
+                currentlyClickedWeapon.item=null;
             }
 
-            currentlyClickedItem.item=null;
-            InventoryController.Instance.UpdateInventories();
+            ic.UpdateInventories();
 
         }
 
         public void SwapItem(InventoryClickedData clickedItem){
-            if (clickedItem.type == typeof(Relic)){
-                Relic i1 = InventoryController.Instance.relicInventory.inventory[clickedItem.index];
-                Relic i2 = InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index];
 
-                InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index] = i1;
-                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = i2;
+
+            if (clickedItem.type == typeof(Relic)){
+                Relic i1 = ic.relicInventory.inventory[clickedItem.index];
+                Relic i2 = ic.relicInventory.inventory[currentlyClickedRelic.index];
+
+                ic.relicInventory.inventory[currentlyClickedRelic.index] = i1;
+                ic.relicInventory.inventory[clickedItem.index] = i2;
+                currentlyClickedRelic.item=null;
             }
 
             else if(clickedItem.type == typeof(Relic)){
-                Weapon i1 = InventoryController.Instance.weaponInventory.inventory[clickedItem.index];
-                Weapon i2 = InventoryController.Instance.weaponInventory.inventory[currentlyClickedItem.index];
+                Weapon i1 = ic.weaponInventory.inventory[clickedItem.index];
+                Weapon i2 = ic.weaponInventory.inventory[currentlyClickedWeapon.index];
 
-                InventoryController.Instance.weaponInventory.inventory[currentlyClickedItem.index] = i1;
-                InventoryController.Instance.weaponInventory.inventory[clickedItem.index] = i2;
+                ic.weaponInventory.inventory[currentlyClickedWeapon.index] = i1;
+                ic.weaponInventory.inventory[clickedItem.index] = i2;
+                currentlyClickedWeapon.item=null;
             }
 
-            currentlyClickedItem.item=null;
-            InventoryController.Instance.UpdateInventories();
+            ic.UpdateInventories();
 
         }
 
@@ -67,11 +77,18 @@ namespace Inventory{
         public void HandleSlotClicked(InventoryClickedData clickedItem){
             if(debugSlotClicked) Debug.Log($"Slot {clickedItem.index} has been clicked in the {clickedItem.type} array");
 
-            if(clickedItem.type==typeof(Relic)) clickedItem.item=InventoryController.Instance.relicInventory.inventory[clickedItem.index];
-            if(clickedItem.type==typeof(Weapon)) clickedItem.item=InventoryController.Instance.weaponInventory.inventory[clickedItem.index];
+            if(clickedItem.type==typeof(Relic)){
+                clickedItem.item=ic.relicInventory.inventory[clickedItem.index];
+            }
+            
+            if(clickedItem.type==typeof(Weapon)){
+                clickedItem.item=ic.weaponInventory.inventory[clickedItem.index];
+            }
+
+            InventoryClickedData currentlyClickedItemData = clickedItem.type==typeof(Relic) ? currentlyClickedRelic : currentlyClickedWeapon;
 
             // If there is no item selected
-            if(currentlyClickedItem.item==null){
+            if(currentlyClickedItemData.item==null){
                 // If the item youve clicked on is an item (because if not, youve just tried to swap two empty inventory slots, which would achieve nothing)
                 if(clickedItem.item != null){
                     Debug.Log("PickupItem"); 

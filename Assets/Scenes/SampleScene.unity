@@ -772,7 +772,7 @@ MonoBehaviour:
     - {fileID: 1390819946}
     - {fileID: 1223111013}
     - {fileID: 656716808}
-    sceneObject: {fileID: 0}
+    sceneObject: {fileID: 1186062612}
 --- !u!114 &397912445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +785,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ac4554e4100214ea6ae909f3a880f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.InventoryClickController
-  currentlyClickedItem:
+  currentlyClickedRelic:
+    index: 0
+    item: {fileID: 0}
+  currentlyClickedWeapon:
     index: 0
     item: {fileID: 0}
 --- !u!1 &410087039
