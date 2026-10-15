@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.ClawAttack
   description: 
   sprite: {fileID: 0}
+  cooldown:
+    CDTime: 0.5
+    onCD: 1
+    cdBar: {fileID: 0}
   damage: 10
-  cooldown: 1
-  onCD: 0
   attackSize: {x: 3, y: 1, z: 3}
   attackOutRegion: 2

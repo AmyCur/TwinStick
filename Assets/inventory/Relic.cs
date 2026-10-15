@@ -24,8 +24,6 @@ namespace Inventory
 
         public void ForceTrigger() => OnTrigger();
 
-        public Cooldown cooldown=new();
-
         public TriggerCondition triggerCondition;
     }
 }

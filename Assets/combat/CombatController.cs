@@ -20,11 +20,15 @@ namespace Combat
 
             foreach(Weapon atk in attacks)
             {
-                if(!atk.onCD) {
-                    // If youre on the ground attack, otherwise youve missed the attack window and have to wait for the CD again
-                    if (JumpingController.instance.Grounded()) atk.OnAttack();
-                    atk.Cooldown();
+                if (atk != null)
+                {
+                    if(!atk.cooldown.onCD) {
+                        // If youre on the ground attack, otherwise youve missed the attack window and have to wait for the CD again
+                        if (JumpingController.instance.Grounded()) atk.OnAttack();
+                        atk.cooldown.CD();
+                    }
                 }
+                
             }            
         }
 
@@ -36,7 +40,7 @@ namespace Combat
             GetAttacks();
             
             foreach(Weapon atk in attacks){
-                atk.onCD=false;
+                if(atk!=null) atk.cooldown.onCD=false;
             }
         }
     }

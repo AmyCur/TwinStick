@@ -30,6 +30,8 @@ namespace Inventory{
                 Relic[] invRelic = InventoryController.Instance.relicInventory.inventory;
                 if(index <= invRelic.Length && index>=0 && invRelic[index]!=null) invRelic[index].ForceTrigger();
             }
+            
+            base.OnTrigger();
         }
     }
 }

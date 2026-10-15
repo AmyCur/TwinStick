@@ -751,7 +751,7 @@ MonoBehaviour:
     inventory:
     - {fileID: 11400000, guid: 3181daf6e1f15a649afa7f53af76f90d, type: 2}
     - {fileID: 11400000, guid: bb19e62dc3406eb438a2fd1d5465b3a9, type: 2}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 7a0864d614ce7e049af01bf1156de273, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     sceneSlots:
@@ -8978,7 +8978,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d1148cf51ea188347b0e30ed83d2df68, type: 3}
     - target: {fileID: 2493890553470045067, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6904856706852316962, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Pivot.x

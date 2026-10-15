@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TailAttack
   description: 
   sprite: {fileID: 0}
+  cooldown:
+    CDTime: 2
+    onCD: 1
+    cdBar: {fileID: 0}
   damage: 10
-  cooldown: 3
-  onCD: 0
   attackSize: {x: 5, y: 1, z: 4}
   attackOutRegion: 4

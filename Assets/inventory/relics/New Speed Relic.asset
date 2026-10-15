@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.SpeedRelic
   description: 
   sprite: {fileID: 0}
+  cooldown:
+    CDTime: 3
+    onCD: 0
+    cdBar: {fileID: 0}
   triggerCondition: 1
   forceTriggerSlots:
-  - 3
+  - 2
