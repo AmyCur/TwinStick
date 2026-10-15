@@ -17,13 +17,14 @@ namespace Inventory{
         }
 
         public void PutDownItem(InventoryClickedData clickedItem){
-            if (clickedItem.type == typeof(Relic))
-            {
+            if (clickedItem.type == typeof(Relic)){
                 int i1 = currentlyClickedItem.index;
                 int i2 = clickedItem.index;
 
                 InventoryController.Instance.relicInventory.inventory[clickedItem.index] = (Relic)currentlyClickedItem.item;
                 InventoryController.Instance.relicInventory.inventory[i2] = null;
+                
+                    currentlyClickedItem.item=null;
 
                 InventoryController.Instance.UpdateInventories();
             }
@@ -34,11 +35,11 @@ namespace Inventory{
                 Relic i1 = InventoryController.Instance.relicInventory.inventory[clickedItem.index];
                 Relic i2 = InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index];
 
-                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = i2;
                 InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index] = i1;
+                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = i2;
 
+                currentlyClickedItem.item=null;
                 InventoryController.Instance.UpdateInventories();
-                
             }
         }
 
@@ -50,11 +51,10 @@ namespace Inventory{
             if(clickedItem.type==typeof(Relic)) clickedItem.item=InventoryController.Instance.relicInventory.inventory[clickedItem.index];
             if(clickedItem.type==typeof(Attack)) clickedItem.item=InventoryController.Instance.weaponInventory.inventory[clickedItem.index];
 
-            if(currentlyClickedItem==null){
+            if(currentlyClickedItem.item==null){
                 if(clickedItem.type==typeof(Relic) && clickedItem.item!=null){
                     Debug.Log("PickupItem"); 
                     PickupItem(clickedItem);
-                
                 }
             }
             else{
@@ -62,7 +62,7 @@ namespace Inventory{
                     Debug.Log("SwapItem"); 
                     SwapItem(clickedItem);
                 }
-                if (clickedItem.item == null){
+               else if (clickedItem.type == typeof(Relic) && clickedItem.item == null){
                     Debug.Log("PutItemDown"); 
                     PutDownItem(clickedItem);
                 }
