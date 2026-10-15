@@ -712,6 +712,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.CombatController
   attacks:
   - {fileID: 11400000, guid: 7b77c6007a2736942bc386472932c980, type: 2}
+  - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &397912443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,7 +764,7 @@ MonoBehaviour:
   weaponInventory:
     inventory:
     - {fileID: 11400000, guid: 7b77c6007a2736942bc386472932c980, type: 2}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -1104,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d1148cf51ea188347b0e30ed83d2df68, type: 3}
     - target: {fileID: 2493890553470045067, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6904856706852316962, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Pivot.x

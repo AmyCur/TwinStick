@@ -8,9 +8,9 @@ namespace Inventory{
     public class RelicWithNoTrigger: Relic{
         public override async void OnTrigger(){
             base.OnTrigger();
-            PlayerController.instance.speed*=3f;
+            PlayerController.Instance.speed*=3f;
             await Task.Delay(2000);
-            PlayerController.instance.speed/=3f;
+            PlayerController.Instance.speed/=3f;
 
         }
     }

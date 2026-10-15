@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Inventory;
 using Player;
 using UnityEngine;
 
@@ -8,7 +10,14 @@ namespace Combat
         
         public List<Weapon> attacks = new();
 
+
+            
+        void GetAttacks() => attacks= InventoryController.Instance.weaponInventory.inventory.ToList();
+
         public void Update()    {
+
+            GetAttacks();
+
             foreach(Weapon atk in attacks)
             {
                 if(!atk.onCD) {
@@ -19,8 +28,13 @@ namespace Combat
             }            
         }
 
+        void OnValidate() => GetAttacks();
+
         void Start()
         {
+
+            GetAttacks();
+            
             foreach(Weapon atk in attacks){
                 atk.onCD=false;
             }

@@ -6,7 +6,7 @@ namespace Player{
     [RequireComponent(typeof(Rigidbody))]
     public sealed class PlayerController : EntityController
     {
-        public static PlayerController instance
+        public static PlayerController Instance
         {
             get{return GameObject.Find("Player").GetComponent<PlayerController>();}
             private set{}

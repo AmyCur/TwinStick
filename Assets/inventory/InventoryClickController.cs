@@ -49,7 +49,6 @@ namespace Inventory{
 
         public void SwapItem(InventoryClickedData clickedItem){
 
-
             if (clickedItem.type == typeof(Relic)){
                 Relic i1 = ic.relicInventory.inventory[clickedItem.index];
                 Relic i2 = ic.relicInventory.inventory[currentlyClickedRelic.index];

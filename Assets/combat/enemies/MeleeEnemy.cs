@@ -13,12 +13,12 @@ namespace Combat{
             base.Attack();
 
             navAgent.destination=transform.position;
-            PlayerController.instance.TakeDamage(damage);
+            PlayerController.Instance.TakeDamage(damage);
         }
         public override void Chase()
         {
             base.Chase();
-            navAgent.destination=PlayerController.instance.transform.position;
+            navAgent.destination=PlayerController.Instance.transform.position;
         }
         protected override void Start()
         {

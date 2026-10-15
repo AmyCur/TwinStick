@@ -8,7 +8,7 @@ namespace Combat
     {
         public float damage;
         public float cooldown;
-        [HideInInspector] public bool onCD;
+        public bool onCD;
 
         public abstract void OnAttack();
         public async void Cooldown(){
