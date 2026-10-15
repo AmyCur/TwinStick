@@ -13,14 +13,33 @@ namespace Inventory{
 
         public void PickupItem(InventoryClickedData clickedItem){
             currentlyClickedItem=clickedItem;
+            InventoryController.Instance.UpdateInventories();
         }
 
-        public void PutDownItem(){
-            
+        public void PutDownItem(InventoryClickedData clickedItem){
+            if (clickedItem.type == typeof(Relic))
+            {
+                int i1 = currentlyClickedItem.index;
+                int i2 = clickedItem.index;
+
+                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = (Relic)currentlyClickedItem.item;
+                InventoryController.Instance.relicInventory.inventory[i2] = null;
+
+                InventoryController.Instance.UpdateInventories();
+            }
         }
 
-        public void SwapItem(){
-            
+        public void SwapItem(InventoryClickedData clickedItem){
+            if (clickedItem.type == typeof(Relic)){
+                Relic i1 = InventoryController.Instance.relicInventory.inventory[clickedItem.index];
+                Relic i2 = InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index];
+
+                InventoryController.Instance.relicInventory.inventory[clickedItem.index] = i2;
+                InventoryController.Instance.relicInventory.inventory[currentlyClickedItem.index] = i1;
+
+                InventoryController.Instance.UpdateInventories();
+                
+            }
         }
 
         public void HandleSlotClicked(int index, Type inventoryType) => HandleSlotClicked(new(index,inventoryType));
@@ -32,11 +51,20 @@ namespace Inventory{
             if(clickedItem.type==typeof(Attack)) clickedItem.item=InventoryController.Instance.weaponInventory.inventory[clickedItem.index];
 
             if(currentlyClickedItem==null){
-                if(clickedItem.type==typeof(Relic) && clickedItem.item!=null) PickupItem(clickedItem);
+                if(clickedItem.type==typeof(Relic) && clickedItem.item!=null){
+                    Debug.Log("PickupItem"); 
+                    PickupItem(clickedItem);
+                
+                }
             }
             else{
-                if (clickedItem.type == typeof(Relic)){
-                    
+                if (clickedItem.type == typeof(Relic) && currentlyClickedItem.type==typeof(Relic)){
+                    Debug.Log("SwapItem"); 
+                    SwapItem(clickedItem);
+                }
+                if (clickedItem.item == null){
+                    Debug.Log("PutItemDown"); 
+                    PutDownItem(clickedItem);
                 }
             }
         }

@@ -20,7 +20,7 @@ namespace Inventory{
             }
         }
 
-        void UpdateInventories(){
+        public void UpdateInventories(){
             relicInventory.UpdateUI();
             weaponInventory.UpdateUI();
         }
