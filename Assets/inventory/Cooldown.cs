@@ -1,18 +1,19 @@
 using Util;
 
-namespace Inventory{
+namespace Inventory
+{
     public class Cooldown{
+        public int CDTime=300;
         public bool onCD;
-        public int CDTime;
 
         public void CD(){
             onCD=true;
-            _ = TimeUtil.SetBoolAfterDelay(() => onCD=false, CDTime);
+            _ = TimeUtil.SetBoolAfterDelay(() => onCD=false, CDTime);     
         }
 
-        public Cooldown(bool onCD=false, int CDTime=1000){
-            this.onCD=onCD;
+        public Cooldown(int CDTime=300, bool onCD = false){
             this.CDTime=CDTime;
+            this.onCD=onCD;
         }
     }
 }

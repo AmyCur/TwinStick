@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using Inventory;
 using UnityEngine;
 
 namespace Combat
 {
-    public abstract class Attack : ScriptableObject
+    public abstract class Attack : Item
     {
         public float damage;
         public float cooldown;

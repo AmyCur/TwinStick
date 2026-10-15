@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Combat;
-using Events;
 using GameDebug;
 using Unity.Collections;
 using UnityEngine;
@@ -44,7 +43,6 @@ namespace Player{
                 foreach(Collider col in belowObjects){
                     if(col.GetComponent<EnemyController>() && !enemiesFlippedOver.Contains(col)){
                         enemiesFlippedOver.Add(col);
-                        CombatEventManager.instance.enemyJumped.Invoke();
                         Debug.Log($"Flipped over {col.name}");
                     }
                 }
