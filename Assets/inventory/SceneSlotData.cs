@@ -10,10 +10,8 @@ namespace Inventory
         Button button;
 
         public void OnClicked() {
-            Debug.Log(index);
-            Debug.Log(inventoryType);
             InventoryClickController.Instance.HandleSlotClicked(index, inventoryType);
-            }
+        }
         
         public void Init(int index, Type inventoryType)
         {

@@ -16,9 +16,6 @@ namespace Combat{
         protected bool shouldAttack => canAttack && PlayerInRange();
         protected bool shouldChase => canChase && !shouldAttack;
 
-
-
-
         public float damage=10f;
         
         [SerializeField] protected float attackRange=5f;

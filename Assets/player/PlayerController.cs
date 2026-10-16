@@ -30,6 +30,7 @@ namespace Player{
 
         void Start(){
             rb=GetComponent<Rigidbody>();
+            iframeOver=true;
         }
 
         void Move(){

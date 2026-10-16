@@ -6,7 +6,7 @@ namespace GameDebug
         public const int HURTBOXLINGERTIME=300; // In MS
 
         public static bool shouldDrawEnemyAttackRays=true;
-        public static bool enemiesShouldBroadcastState=false;
+        public static bool enemiesShouldBroadcastState=true;
 
         public static bool logGrounded=false;
 

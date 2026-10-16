@@ -5,7 +5,7 @@ namespace Inventory
     [System.Serializable]
     public abstract class Relic : Item{
 
-        public int index
+        new public int index
         {
             get
             {

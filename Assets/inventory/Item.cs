@@ -5,5 +5,6 @@ namespace Inventory{
         public string description;
         public Sprite sprite;
         public Cooldown cooldown = new(null);
+        public int index;
     }
 }

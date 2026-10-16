@@ -8,6 +8,7 @@ namespace Inventory{
     public class Inventory<T> where T : Item {
         public T[] inventory;
         public Image[] sceneSlots;
+        [HideInInspector] public InventoryClickedData currentlyClickedItem;
         
         [Tooltip("The object which holds all of the scene slots")]
         public GameObject sceneObject;
@@ -57,6 +58,65 @@ namespace Inventory{
                 scd.Init(i, typeof(T));
             }
         }
+
+        public void PickupItem(InventoryClickedData clickedItem){
+            currentlyClickedItem=clickedItem;      
+
+            UpdateUI();
+        }
+
+        public void PutDownItem(InventoryClickedData clickedItem){
+            
+            int i1 = currentlyClickedItem.index;
+            int i2 = clickedItem.index;
+
+            inventory[clickedItem.index] = (T)currentlyClickedItem.item;
+            inventory[i1] = null;
+            currentlyClickedItem.item=null;
+
+            UpdateUI();
+        }
+
+        public void SwapItem(InventoryClickedData clickedItem){
+            T i1 = inventory[clickedItem.index];
+            T i2 =inventory[currentlyClickedItem.index];
+
+            inventory[currentlyClickedItem.index] = i1;
+            inventory[clickedItem.index] = i2;
+            currentlyClickedItem.item=null;
+
+            UpdateUI();
+        }
+
+        public void HandleSlotClicked(InventoryClickedData clickedItem){
+            // if(debugSlotCli) Debug.Log($"Slot {clickedItem.index} has been clicked in the {clickedItem.type} array");
+            clickedItem.item=inventory[clickedItem.index];
+
+            // If there is no item selected
+            if(currentlyClickedItem.item==null){
+                // If the item youve clicked on is an item (because if not, youve just tried to swap two empty inventory slots, which would achieve nothing)
+                if(clickedItem.item != null){
+                    Debug.Log("PickupItem"); 
+                    PickupItem(clickedItem);
+                    
+                }
+            }
+            else{        
+                // If youre holding an item and click on an empty slot, put it down        
+                if ( clickedItem.item == null){
+                    Debug.Log("PutItemDown"); 
+                    PutDownItem(clickedItem);
+                }
+
+                // If youre holding an item and click on another item, swap them
+                else
+                {
+                    Debug.Log("SwapItem"); 
+                    SwapItem(clickedItem);
+                }
+            }
+        }
+
 
         public void Init(){
             UpdateUI();
