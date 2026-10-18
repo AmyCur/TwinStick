@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Combat.Shop;
 using GameDebug;
+using Inventory;
 using Player;
 using UnityEngine;
 
@@ -79,7 +80,7 @@ namespace Combat.Rounds{
             
             yield return new WaitUntil(() => aliveEnemies.Count == 0);
             yield return new WaitForSeconds(timeAfterRoundCompleted/1000f);
-            ShopController.Instance.TriggerShop();
+            if(!InventoryController.Instance.relicInventory.Full() && !InventoryController.Instance.weaponInventory.Full()) ShopController.Instance.TriggerShop();
         }
 
         IEnumerator SpawnAllEnemies(){

@@ -38,6 +38,15 @@ namespace Inventory{
             inventory[i2]=t1;
         }
 
+        public bool Full(){
+            
+            foreach(T t in inventory){
+                if(t==default(T)) return false;
+            }
+
+            return true;
+        }
+
         public void UpdateUI(){
             for(int i = 0; i < sceneSlots.Length; i++){
                 Image spriteImage = sceneSlots[i].transform.GetChild(0).GetComponent<Image>();
