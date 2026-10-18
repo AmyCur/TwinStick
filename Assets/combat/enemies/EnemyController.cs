@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Combat.Rounds;
 using Entities;
 using GameDebug;
 using Inventory;
@@ -35,6 +36,7 @@ namespace Combat{
 
         public override void Die()
         {
+            if(RoundController.Instance.aliveEnemies.Contains(this)) RoundController.Instance.aliveEnemies.Remove(this);
             base.Die();
         }
 

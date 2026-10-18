@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Combat.Shop;
 using GameDebug;
 using Player;
 using UnityEngine;
@@ -14,7 +15,8 @@ namespace Combat.Rounds{
         [SerializeField] int enemiesToSpawn;
         public float minSpawnRange = 3f;
         public float maxSpawnRange = 6f;
-        [Tooltip("In MS")] public int timeBetweenSpawns = 1000;
+        [Tooltip("In MS")] public float timeBetweenSpawns = 1000;
+        [Tooltip("In MS")] public float timeAfterRoundCompleted = 1000;
         static string enemyStorageLocationBase = "enemies/";
 
 
@@ -54,27 +56,39 @@ namespace Combat.Rounds{
             Vector3 spawnPosition = overidePosition == null ? SpawnPosition() : (Vector3)overidePosition;
             GameObject enemyType = overrideEnemyType==EnemyTypes.none ? GetTargetEnemy() : enemyTypeObjects[overrideEnemyType];
             GameObject enemyObject = Instantiate(enemyType, spawnPosition, Quaternion.identity);
+
+            aliveEnemies.Add(enemyObject.GetComponent<EnemyController>());
         }
 
         Vector3 SpawnPosition(){
             int rotation = Random.Range(0, 181);
             float spawnDistance = Random.Range(minSpawnRange, maxSpawnRange);
+
             int flipX=Random.Range(0,2);
             int flipZ=Random.Range(0,2);
+
             Vector3 positionFromPlayer = new Vector3(flipX==0 ? 1 : -1,0, flipZ == 0 ? 1 : -1);
             positionFromPlayer = Quaternion.Euler(0,0,rotation)*positionFromPlayer;
             positionFromPlayer = positionFromPlayer.normalized * spawnDistance;
 
-            Debug.Log(positionFromPlayer);
             positionFromPlayer = PlayerController.Instance.transform.position+positionFromPlayer;
             return new(positionFromPlayer.x, 3.102405f+transform.localScale.z/2f, positionFromPlayer.z);
         }  
+        
+        IEnumerator WaitUntilRoundEnd(){
+            
+            yield return new WaitUntil(() => aliveEnemies.Count == 0);
+            yield return new WaitForSeconds(timeAfterRoundCompleted/1000f);
+            ShopController.Instance.TriggerShop();
+        }
 
         IEnumerator SpawnAllEnemies(){
             for(int i = 0; i < enemiesToSpawn; i++){
                 SpawnEnemy();
-                yield return new WaitForSeconds((float)timeBetweenSpawns/1000f);
+                yield return new WaitForSeconds(timeBetweenSpawns/1000f);
             }
+
+            StartCoroutine(WaitUntilRoundEnd());
         }      
 
         public void BeginRound(){
