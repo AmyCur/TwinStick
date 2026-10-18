@@ -57,6 +57,10 @@ namespace Combat{
             DecideState();
         }
 
+        void Update(){
+            transform.position = new Vector3(transform.position.x, 3.102405f+transform.localScale.z/2f, transform.position.z);
+        }
+
         void OnDrawGizmos(){
             if (CombatDebug.shouldDrawEnemyAttackRays){
                 Gizmos.color=Color.softRed;

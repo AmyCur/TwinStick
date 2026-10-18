@@ -63,7 +63,7 @@ namespace Player{
 
         void Update()
         {
-            if(Grounded() && Input.GetKeyDown(KeyCode.Space))
+            if(Grounded() && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
             {
                 Jump();
             }
