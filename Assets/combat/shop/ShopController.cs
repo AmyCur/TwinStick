@@ -4,6 +4,7 @@ using UnityEngine;
 using Inventory;
 using System;
 using System.Linq;
+using Util;
 
 namespace Combat.Shop{
     public class ShopController : Singleton<ShopController>{
@@ -36,11 +37,59 @@ namespace Combat.Shop{
             }
         }
 
+        bool ItemAlreadyInShop(Item item)
+        {
+            foreach(ShopUIItem sui in shopUIItems){
+                if(sui.itemData.item == item) return true;
+            }
+
+            return false;
+        }
+
+        List<Item> GetAllCurrentlySoldItems(){
+            List<Item> its = new();
+            foreach(ShopUIItem sui in shopUIItems)
+            {
+                if(sui!=null) its.Add(sui.itemData.item);
+            }
+
+            return its;
+        }
+
+
+        (List<Relic>, List<Weapon>) GetPossibleItems()
+        {
+            List<Item> currentlySoldItems = GetAllCurrentlySoldItems();
+
+            List<Weapon> pw = possibleWeapons;
+            List<Relic> pr = possibleRelics;
+
+            foreach(Item i in currentlySoldItems)
+            {
+                if(i is Relic r && pr.Contains(r)) pr.Remove(r);
+                if(i is Weapon w && pw.Contains(w)) pw.Remove(w);
+            }
+
+            return (pr,pw);
+        }
+
         Item ChooseRandomItem(){
             RemoveAllDuplicateItems();
 
-            Weapon randomWeapon = possibleWeapons[UnityEngine.Random.Range(0, possibleWeapons.Count)];
-            Relic randomRelic = possibleRelics[UnityEngine.Random.Range(0, possibleRelics.Count)];
+            (List<Relic> relics, List<Weapon> weapons) possibleItems = GetPossibleItems();
+
+            
+
+            bool relicsPossible = possibleItems.relics.Count!=0;
+            bool weaponsPossible = possibleItems.weapons.Count!=0;
+
+            // If you have every item
+            if(!relicsPossible && !weaponsPossible){
+                return null;
+            }
+
+            Weapon randomWeapon = possibleItems.weapons[UnityEngine.Random.Range(0, possibleItems.weapons.Count)];
+            Relic randomRelic = possibleItems.relics[UnityEngine.Random.Range(0, possibleItems.relics.Count)];
 
             // If weapon inventory is full and relic inventory is not
             if(InventoryController.Instance.weaponInventory.Full() && !InventoryController.Instance.relicInventory.Full()) return randomRelic;
@@ -49,24 +98,33 @@ namespace Combat.Shop{
             if(!InventoryController.Instance.weaponInventory.Full() && InventoryController.Instance.relicInventory.Full()) return randomWeapon;
 
             float weight = UnityEngine.Random.Range(0, relicWeight+weaponWeight);
-            if(weight <= weaponWeight) return possibleWeapons[UnityEngine.Random.Range(0, possibleWeapons.Count)];
-            return possibleRelics[UnityEngine.Random.Range(0, possibleRelics.Count)]; 
+            if(weight <= weaponWeight) return this.possibleWeapons[UnityEngine.Random.Range(0, this.possibleWeapons.Count)];
+            return this.possibleRelics[UnityEngine.Random.Range(0, this.possibleRelics.Count)]; 
         }
 
         IEnumerator CreateShopMenu(){
+            TimeUtil.PauseGame();
             shopUI.SetActive(true);
             foreach(ShopUIItem sui in shopUIItems){
-                sui.CreateItemCard(ChooseRandomItem());
-                yield return new WaitForSeconds(1f);            
+                sui.itemData.item=null;
+                Item ri = ChooseRandomItem();
+                if(ri!=null) sui.CreateItemCard(ri);
+                yield return new WaitForSeconds(0.3f);            
             }
         }
 
         public IEnumerator CloseShopMenu(){
+            TimeUtil.ResumeGame();
+
+            foreach(ShopUIItem sui in shopUIItems){
+                sui.button.onClick.RemoveAllListeners();
+            }
+            
             shopUIItems.Reverse();
 
             foreach(ShopUIItem sui in shopUIItems){
                 sui.RemoveItemCard();
-                yield return new WaitForSeconds(1f);            
+                yield return new WaitForSeconds(0.3f);            
             }
 
             shopUIItems.Reverse();

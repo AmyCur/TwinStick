@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: New Claw Attack
   m_EditorClassIdentifier: Assembly-CSharp::Combat.ClawAttack
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7e7d063734852f048a1b7e14123edb41, type: 3}
   cooldown:
     CDTime: 0.5
     onCD: 1
     cdBar: {fileID: 0}
+  index: 0
   damage: 10
   attackSize: {x: 3, y: 1, z: 3}
   attackOutRegion: 2

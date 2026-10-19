@@ -9,28 +9,27 @@ namespace Combat.Shop{
         
         public GameObject sceneObject;
         
-        public Image image;
-        public Button button;
-        public TMP_Text descriptionText;
-        public TMP_Text titleText;
-        public ShopItemData itemData;
+        [HideInInspector] public Image image;
+        [HideInInspector] public Button button;
+        [HideInInspector] public TMP_Text descriptionText;
+        [HideInInspector] public TMP_Text titleText;
+        [HideInInspector] public ShopItemData itemData;
     
         public void CreateItemCard(Item targetItem){
             itemData.item=targetItem;
             titleText.text=targetItem.name;
             image.sprite=itemData.item.sprite;
             descriptionText.text=itemData.item.description;
+            button.onClick.AddListener(() => itemData.GetItem());
             sceneObject.SetActive(true);
-
         }
 
         public void Init(){
             itemData = sceneObject.GetComponent<ShopItemData>();
             titleText = sceneObject.transform.GetChild(0).GetComponent<TMP_Text>();
             descriptionText = sceneObject.transform.GetChild(2).GetComponent<TMP_Text>();
-            button = sceneObject.transform.GetChild(3).GetComponent<Button>();
+            button = sceneObject.GetComponent<Button>();
             image =  sceneObject.transform.GetChild(1).GetComponent<Image>();
-            button.onClick.AddListener(() => itemData.GetItem());
         }
 
         public void RemoveItemCard()

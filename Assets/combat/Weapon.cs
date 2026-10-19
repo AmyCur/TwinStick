@@ -6,6 +6,7 @@ namespace Combat
 {
     public abstract class Weapon : Item
     {
+        [Header("Weapon")]
         public float damage;
         public abstract void OnAttack();
 
