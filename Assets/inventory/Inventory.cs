@@ -24,6 +24,8 @@ namespace Inventory{
                     break;
                 }
             }
+
+            UpdateUI();
         }
 
         public void Remove(int index){

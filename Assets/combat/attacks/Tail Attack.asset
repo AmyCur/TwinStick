@@ -18,6 +18,7 @@ MonoBehaviour:
     CDTime: 2
     onCD: 1
     cdBar: {fileID: 0}
+  index: 0
   damage: 10
   attackSize: {x: 5, y: 1, z: 4}
   attackOutRegion: 4

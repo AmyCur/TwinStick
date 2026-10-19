@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251b56d3d6257114eab8672ce7e95272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combat.Rounds.RoundController
-  enemiesToSpawn: 10
+  enemiesToSpawn: 1
   minSpawnRange: 10
   maxSpawnRange: 15
   timeBetweenSpawns: 1000
@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 132777620}
   - component: {fileID: 132777619}
   - component: {fileID: 132777618}
+  - component: {fileID: 132777621}
   m_Layer: 5
   m_Name: WeaponSlot (2)
   m_TagString: Untagged
@@ -512,6 +513,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132777616}
   m_CullTransparentMesh: 1
+--- !u!114 &132777621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132777616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef62ef5166ffff47a047870dec7543c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat.Shop.ShopItemData
+  item: {fileID: 0}
 --- !u!43 &180698988
 Mesh:
   m_ObjectHideFlags: 0
@@ -1195,6 +1209,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae35c5fc3d0f5c40aaf07a3040f0742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combat.Shop.ShopController
+  shopUIItems:
+  - sceneObject: {fileID: 858964745}
+    image: {fileID: 0}
+    button: {fileID: 0}
+    descriptionText: {fileID: 0}
+    titleText: {fileID: 0}
+    itemData: {fileID: 0}
+  - sceneObject: {fileID: 644026686}
+    image: {fileID: 0}
+    button: {fileID: 0}
+    descriptionText: {fileID: 0}
+    titleText: {fileID: 0}
+    itemData: {fileID: 0}
+  - sceneObject: {fileID: 132777616}
+    image: {fileID: 0}
+    button: {fileID: 0}
+    descriptionText: {fileID: 0}
+    titleText: {fileID: 0}
+    itemData: {fileID: 0}
   possibleRelics:
   - {fileID: 11400000, guid: 7a0864d614ce7e049af01bf1156de273, type: 2}
   - {fileID: 11400000, guid: bb19e62dc3406eb438a2fd1d5465b3a9, type: 2}
@@ -1203,7 +1236,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}
   relicWeight: 60
   weaponWeight: 40
-  shopUI: {fileID: 0}
+  shopUI: {fileID: 498165405}
 --- !u!4 &363890960
 Transform:
   m_ObjectHideFlags: 0
@@ -1474,7 +1507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.CombatController
   attacks:
   - {fileID: 11400000, guid: 7b77c6007a2736942bc386472932c980, type: 2}
-  - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1512,8 +1545,8 @@ MonoBehaviour:
   relicInventory:
     inventory:
     - {fileID: 11400000, guid: 3181daf6e1f15a649afa7f53af76f90d, type: 2}
-    - {fileID: 11400000, guid: bb19e62dc3406eb438a2fd1d5465b3a9, type: 2}
-    - {fileID: 11400000, guid: 7a0864d614ce7e049af01bf1156de273, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     sceneSlots:
@@ -1529,7 +1562,7 @@ MonoBehaviour:
   weaponInventory:
     inventory:
     - {fileID: 11400000, guid: 7b77c6007a2736942bc386472932c980, type: 2}
-    - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -1853,7 +1886,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d1148cf51ea188347b0e30ed83d2df68, type: 3}
     - target: {fileID: 2493890553470045067, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6904856706852316962, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Pivot.x
@@ -2525,6 +2558,7 @@ GameObject:
   - component: {fileID: 644026690}
   - component: {fileID: 644026689}
   - component: {fileID: 644026688}
+  - component: {fileID: 644026691}
   m_Layer: 5
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
@@ -2619,6 +2653,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644026686}
   m_CullTransparentMesh: 1
+--- !u!114 &644026691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644026686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef62ef5166ffff47a047870dec7543c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat.Shop.ShopItemData
+  item: {fileID: 0}
 --- !u!1001 &656716806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3555,6 +3602,7 @@ GameObject:
   - component: {fileID: 858964749}
   - component: {fileID: 858964748}
   - component: {fileID: 858964747}
+  - component: {fileID: 858964750}
   m_Layer: 5
   m_Name: WeaponSlot
   m_TagString: Untagged
@@ -3649,6 +3697,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858964745}
   m_CullTransparentMesh: 1
+--- !u!114 &858964750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858964745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef62ef5166ffff47a047870dec7543c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat.Shop.ShopItemData
+  item: {fileID: 0}
 --- !u!1 &913379679
 GameObject:
   m_ObjectHideFlags: 0
@@ -11104,6 +11165,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d1148cf51ea188347b0e30ed83d2df68, type: 3}
+    - target: {fileID: 2493890553470045067, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6904856706852316962, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11672,7 +11737,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d1148cf51ea188347b0e30ed83d2df68, type: 3}
     - target: {fileID: 2493890553470045067, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6904856706852316962, guid: 0ea18ef4f076c3a49822de2bf972cb2a, type: 3}
       propertyPath: m_Pivot.x

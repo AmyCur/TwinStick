@@ -8,7 +8,7 @@ using System.Linq;
 namespace Combat.Shop{
     public class ShopController : Singleton<ShopController>{
         
-        List<ShopUIItem> shopUIItems = new();
+        [SerializeField] List<ShopUIItem> shopUIItems = new();
         
         [Header("Possible Items")]
         [SerializeField] List<Relic> possibleRelics = new();
@@ -22,11 +22,16 @@ namespace Combat.Shop{
          
         // Removes all items that are already in the players inventory
         void RemoveAllDuplicateItems(){
-            foreach(Relic r in possibleRelics){
+            Relic[] pr = new Relic[possibleRelics.Count];
+            Weapon[] wp = new Weapon[possibleWeapons.Count];
+            possibleRelics.CopyTo(pr);
+            possibleWeapons.CopyTo(wp);
+
+            foreach(Relic r in pr){
                 if(InventoryController.Instance.relicInventory.inventory.Contains(r)) possibleRelics.Remove(r);
             }
 
-            foreach(Weapon w in possibleWeapons){
+            foreach(Weapon w in wp){
                 if(InventoryController.Instance.weaponInventory.inventory.Contains(w)) possibleWeapons.Remove(w);
             }
         }
@@ -70,6 +75,13 @@ namespace Combat.Shop{
         
         public void TriggerShop(){
             StartCoroutine(CreateShopMenu());
+        }
+
+        void Start(){
+            shopUI.SetActive(false);
+            foreach(ShopUIItem sui in shopUIItems){
+                sui.Init();
+            }
         }
     }
 }
