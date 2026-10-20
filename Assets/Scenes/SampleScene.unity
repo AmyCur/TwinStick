@@ -1186,6 +1186,7 @@ MonoBehaviour:
   possibleRelics:
   - {fileID: 11400000, guid: 7a0864d614ce7e049af01bf1156de273, type: 2}
   - {fileID: 11400000, guid: bb19e62dc3406eb438a2fd1d5465b3a9, type: 2}
+  - {fileID: 11400000, guid: 3181daf6e1f15a649afa7f53af76f90d, type: 2}
   possibleWeapons:
   - {fileID: 11400000, guid: 7b77c6007a2736942bc386472932c980, type: 2}
   - {fileID: 11400000, guid: 085d1de8d00d0a143828663db93ba43f, type: 2}

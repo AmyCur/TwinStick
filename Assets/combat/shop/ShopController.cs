@@ -23,20 +23,46 @@ namespace Combat.Shop{
          
         // Removes all items that are already in the players inventory
         (List<Relic>, List<Weapon>) RemoveAllDuplicateItems(){
-            List<Relic> pr = possibleRelics;
-            List<Weapon> pw = possibleWeapons;
-            
-            for(int i = 0; i < possibleRelics.Count; i++){
-                if(InventoryController.Instance.relicInventory.inventory.Contains(possibleRelics[i])) pr.RemoveAt(i);
+            // So its not a pointer
+            List<Relic> pr = new(possibleRelics);
+            List<Weapon> pw = new(possibleWeapons);
+
+            // for(int i = 0; i < possibleRelics.Count; i++){
+            //     if (InventoryController.Instance.relicInventory.inventory.Contains(possibleRelics[i]))
+            //     {
+            //         Debug.LogWarning($"Removed {pr[i].name}");
+            //         pr.RemoveAt(i);
+            //     }
+            // }
+
+            foreach(Relic r in possibleRelics){
+                if(InventoryController.Instance.relicInventory.inventory.Contains(r)) {
+                    Debug.Log($"Removed {r.name}");
+                    pr.Remove(r);
+                }
             }
 
-            for(int i = 0; i < possibleWeapons.Count; i++){
-                if(InventoryController.Instance.weaponInventory.inventory.Contains(possibleWeapons[i])) pw.RemoveAt(i);
+            foreach(Weapon w in possibleWeapons){
+                if(InventoryController.Instance.weaponInventory.inventory.Contains(w))
+                {
+                    Debug.Log($"Removed {w.name}");
+                    pw.Remove(w);
+                }
             }
+
+            // for(int i = 0; i < possibleWeapons.Count; i++){
+            //     if(InventoryController.Instance.weaponInventory.inventory.Contains(possibleWeapons[i])) {
+            //         if (pw[i] != null){
+            //             Debug.LogWarning($"Removed {pw[i].name}");
+            //             pw.RemoveAt(i);
+            //         }
+                    
+            //     }
+            // }
 
             
 
-            return (pr,pw);
+            return (pr, pw);
         }
 
         bool ItemAlreadyInShop(Item item)
@@ -52,15 +78,13 @@ namespace Combat.Shop{
             List<Item> its = new();
             foreach(ShopUIItem sui in shopUIItems)
             {
-                if(sui!=null) its.Add(sui.itemData.item);
+                if(sui.itemData.item!=null) its.Add(sui.itemData.item);
             }
 
             return its;
         }
 
-
-        (List<Relic>, List<Weapon>) GetPossibleItems((List<Relic> relics, List<Weapon> weapons) rw)
-        {
+        (List<Relic>, List<Weapon>) GetPossibleItems((List<Relic> relics, List<Weapon> weapons) rw){
             List<Item> currentlySoldItems = GetAllCurrentlySoldItems();
 
             List<Weapon> pw = rw.weapons;
@@ -72,21 +96,15 @@ namespace Combat.Shop{
                 if(i is Weapon w && pw.Contains(w)) pw.Remove(w);
             }
 
-        return (pr,pw);
+            return (pr, pw);
         }
 
         Item ChooseRandomItem(){
             (List<Relic> relics, List<Weapon> weapons) removedDupes = RemoveAllDuplicateItems();
             (List<Relic> relics, List<Weapon> weapons) possibleItems = GetPossibleItems(removedDupes);
 
-
-           
-
-
-            Debug.Log($"Possible Relics: {string.Join(" | ", possibleItems.relics)}");
-            Debug.Log($"Possible Weapons: {string.Join(" | ", possibleItems.weapons)}");
-
-            
+            Debug.Log($"Possible Relics: {string.Join(" | ", removedDupes.relics)}");
+            Debug.Log($"Possible Weapons: {string.Join(" | ", removedDupes.weapons)}");       
 
             bool relicsPossible = possibleItems.relics.Count!=0;
             bool weaponsPossible = possibleItems.weapons.Count!=0;
@@ -101,7 +119,6 @@ namespace Combat.Shop{
 
             // If weapon inventory is full, or there are no possible weapons, and relic inventory is not
             if((InventoryController.Instance.weaponInventory.Full() || possibleItems.weapons.Count==0) && !InventoryController.Instance.relicInventory.Full()) return randomRelic;
-           
             // If weapon inventory is not full and relic inventory is
             if(!InventoryController.Instance.weaponInventory.Full() && (InventoryController.Instance.relicInventory.Full() || possibleItems.relics.Count==0)) return randomWeapon;
 
@@ -119,7 +136,7 @@ namespace Combat.Shop{
                 if(ri!=null) sui.CreateItemCard(ri);
                 yield return new WaitForSeconds(0.3f);            
             }
-            TimeUtil.PauseGame();
+            // TimeUtil.PauseGame();
         }
 
         public IEnumerator CloseShopMenu(){

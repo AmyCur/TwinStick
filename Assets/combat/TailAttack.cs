@@ -6,7 +6,6 @@ using UnityEngine;
 public class TailAttack : ClawAttack
 {
     public override void OnAttack(){
-        Debug.Log("tail");
             Directions lookDirection = PlayerController.Instance.lookDirection;
 
             float horizontalMult = lookDirection == Directions.left ? 1 : lookDirection == Directions.right ? -1 : 0;

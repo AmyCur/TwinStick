@@ -97,6 +97,11 @@ namespace Combat.Rounds{
             StartCoroutine(SpawnAllEnemies());
         }
 
+        public void ProgressRound(){
+            enemiesToSpawn= Mathf.CeilToInt(enemiesToSpawn*1.05f);
+            BeginRound();
+        }
+
         void Start(){
             enemyTypeObjects = new()
             {
