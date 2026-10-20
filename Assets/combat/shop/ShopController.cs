@@ -22,19 +22,20 @@ namespace Combat.Shop{
         [SerializeField] GameObject shopUI;
          
         // Removes all items that are already in the players inventory
-        void RemoveAllDuplicateItems(){
-            Relic[] pr = new Relic[possibleRelics.Count];
-            Weapon[] wp = new Weapon[possibleWeapons.Count];
-            possibleRelics.CopyTo(pr);
-            possibleWeapons.CopyTo(wp);
+        (List<Relic>, List<Weapon>) RemoveAllDuplicateItems(){
+            List<Relic> pr = possibleRelics;
+            List<Weapon> pw = possibleWeapons;
+            
 
-            foreach(Relic r in pr){
-                if(InventoryController.Instance.relicInventory.inventory.Contains(r)) possibleRelics.Remove(r);
+            foreach(Relic r in possibleRelics){
+                if(InventoryController.Instance.relicInventory.inventory.Contains(r)) pr.Remove(r);
             }
 
-            foreach(Weapon w in wp){
-                if(InventoryController.Instance.weaponInventory.inventory.Contains(w)) possibleWeapons.Remove(w);
+            foreach(Weapon w in possibleWeapons){
+                if(InventoryController.Instance.weaponInventory.inventory.Contains(w)) pw.Remove(w);
             }
+
+            return (pr,pw);
         }
 
         bool ItemAlreadyInShop(Item item)
@@ -57,7 +58,7 @@ namespace Combat.Shop{
         }
 
 
-        (List<Relic>, List<Weapon>) GetPossibleItems()
+        (List<Relic>, List<Weapon>) GetPossibleItems((List<Relic> relics, List<Weapon> weapons))
         {
             List<Item> currentlySoldItems = GetAllCurrentlySoldItems();
 
@@ -70,7 +71,7 @@ namespace Combat.Shop{
                 if(i is Weapon w && pw.Contains(w)) pw.Remove(w);
             }
 
-            return (pr,pw);
+        return (pr,pw);
         }
 
         Item ChooseRandomItem(){
