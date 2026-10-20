@@ -26,14 +26,15 @@ namespace Combat.Shop{
             List<Relic> pr = possibleRelics;
             List<Weapon> pw = possibleWeapons;
             
-
-            foreach(Relic r in possibleRelics){
-                if(InventoryController.Instance.relicInventory.inventory.Contains(r)) pr.Remove(r);
+            for(int i = 0; i < possibleRelics.Count; i++){
+                if(InventoryController.Instance.relicInventory.inventory.Contains(possibleRelics[i])) pr.RemoveAt(i);
             }
 
-            foreach(Weapon w in possibleWeapons){
-                if(InventoryController.Instance.weaponInventory.inventory.Contains(w)) pw.Remove(w);
+            for(int i = 0; i < possibleWeapons.Count; i++){
+                if(InventoryController.Instance.weaponInventory.inventory.Contains(possibleWeapons[i])) pw.RemoveAt(i);
             }
+
+            
 
             return (pr,pw);
         }
@@ -58,12 +59,12 @@ namespace Combat.Shop{
         }
 
 
-        (List<Relic>, List<Weapon>) GetPossibleItems((List<Relic> relics, List<Weapon> weapons))
+        (List<Relic>, List<Weapon>) GetPossibleItems((List<Relic> relics, List<Weapon> weapons) rw)
         {
             List<Item> currentlySoldItems = GetAllCurrentlySoldItems();
 
-            List<Weapon> pw = possibleWeapons;
-            List<Relic> pr = possibleRelics;
+            List<Weapon> pw = rw.weapons;
+            List<Relic> pr = rw.relics;
 
             foreach(Item i in currentlySoldItems)
             {
@@ -75,9 +76,15 @@ namespace Combat.Shop{
         }
 
         Item ChooseRandomItem(){
-            RemoveAllDuplicateItems();
+            (List<Relic> relics, List<Weapon> weapons) removedDupes = RemoveAllDuplicateItems();
+            (List<Relic> relics, List<Weapon> weapons) possibleItems = GetPossibleItems(removedDupes);
 
-            (List<Relic> relics, List<Weapon> weapons) possibleItems = GetPossibleItems();
+
+           
+
+
+            Debug.Log($"Possible Relics: {string.Join(" | ", possibleItems.relics)}");
+            Debug.Log($"Possible Weapons: {string.Join(" | ", possibleItems.weapons)}");
 
             
 
@@ -89,14 +96,14 @@ namespace Combat.Shop{
                 return null;
             }
 
-            Weapon randomWeapon = possibleItems.weapons[UnityEngine.Random.Range(0, possibleItems.weapons.Count)];
-            Relic randomRelic = possibleItems.relics[UnityEngine.Random.Range(0, possibleItems.relics.Count)];
+            Weapon randomWeapon = possibleItems.weapons.Count != 0 ? possibleItems.weapons[UnityEngine.Random.Range(0, possibleItems.weapons.Count)] : null;
+            Relic randomRelic = possibleItems.relics.Count != 0 ? possibleItems.relics[UnityEngine.Random.Range(0, possibleItems.relics.Count)] : null;
 
-            // If weapon inventory is full and relic inventory is not
-            if(InventoryController.Instance.weaponInventory.Full() && !InventoryController.Instance.relicInventory.Full()) return randomRelic;
+            // If weapon inventory is full, or there are no possible weapons, and relic inventory is not
+            if((InventoryController.Instance.weaponInventory.Full() || possibleItems.weapons.Count==0) && !InventoryController.Instance.relicInventory.Full()) return randomRelic;
            
             // If weapon inventory is not full and relic inventory is
-            if(!InventoryController.Instance.weaponInventory.Full() && InventoryController.Instance.relicInventory.Full()) return randomWeapon;
+            if(!InventoryController.Instance.weaponInventory.Full() && (InventoryController.Instance.relicInventory.Full() || possibleItems.relics.Count==0)) return randomWeapon;
 
             float weight = UnityEngine.Random.Range(0, relicWeight+weaponWeight);
             if(weight <= weaponWeight) return this.possibleWeapons[UnityEngine.Random.Range(0, this.possibleWeapons.Count)];
@@ -104,14 +111,15 @@ namespace Combat.Shop{
         }
 
         IEnumerator CreateShopMenu(){
-            TimeUtil.PauseGame();
             shopUI.SetActive(true);
             foreach(ShopUIItem sui in shopUIItems){
+                Debug.Log("hi");
                 sui.itemData.item=null;
                 Item ri = ChooseRandomItem();
                 if(ri!=null) sui.CreateItemCard(ri);
                 yield return new WaitForSeconds(0.3f);            
             }
+            TimeUtil.PauseGame();
         }
 
         public IEnumerator CloseShopMenu(){
@@ -137,10 +145,10 @@ namespace Combat.Shop{
         }
 
         void Start(){
-            shopUI.SetActive(false);
             foreach(ShopUIItem sui in shopUIItems){
                 sui.Init();
             }
+            shopUI.SetActive(false);
         }
     }
 }
