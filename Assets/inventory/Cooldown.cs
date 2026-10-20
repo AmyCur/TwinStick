@@ -31,6 +31,7 @@ namespace Inventory
 
 
         public void CD(){
+            if(cdRoutine!=null) PlayerController.Instance.StopCoroutine(cdRoutine);
             cdRoutine = PlayerController.Instance.StartCoroutine(HandleCD());
         }
 
