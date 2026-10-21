@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48782d9ee87f9be4faeb3e851321183c, type: 3}
+  m_Name: New Yarn Attack
+  m_EditorClassIdentifier: Assembly-CSharp::Combat.YarnAttack
+  description: 
+  sprite: {fileID: 21300000, guid: ae6cbfaca97c34b47963a1b7dabce412, type: 3}
+  cooldown:
+    CDTime: 3
+    onCD: 0
+    cdBar: {fileID: 0}
+  index: 0
+  damage: 1000

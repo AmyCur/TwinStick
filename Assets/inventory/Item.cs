@@ -10,5 +10,7 @@ namespace Inventory{
         [Header("Functionality")]
         public Cooldown cooldown = new(null);
         public int index;
+
+        public abstract void ForceTrigger();
     }
 }

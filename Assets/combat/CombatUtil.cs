@@ -22,6 +22,7 @@ namespace Combat{
             if(hurtbox!=null) GameObject.Destroy(hurtbox);
         }
 
+
         public static void CreateDamageBox(float damage, object dimensions, Vector3 position, EntityTypes eType=EntityTypes.enemy){
             List<Collider> colliders = new();
 

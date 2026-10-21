@@ -29,15 +29,15 @@ namespace Combat.Shop
             }
 
             
-            Debug.Log($@"
-                Possible Relics [{string.Join(",", pr)}],
-                Current Relics [{string.Join<Relic>(", ", InventoryController.Instance.relicInventory.inventory)}]
-            ");
+            // Debug.Log($@"
+            //     Possible Relics [{string.Join(",", pr)}],
+            //     Current Relics [{string.Join<Relic>(", ", InventoryController.Instance.relicInventory.inventory)}]
+            // ");
 
-             Debug.Log($@"
-                Possible Weapons [{string.Join(",", pw)}],
-                Current Weapons [{string.Join<Weapon>(", ", InventoryController.Instance.weaponInventory.inventory)}]
-            ");
+            //  Debug.Log($@"
+            //     Possible Weapons [{string.Join(",", pw)}],
+            //     Current Weapons [{string.Join<Weapon>(", ", InventoryController.Instance.weaponInventory.inventory)}]
+            // ");
 
 
 
@@ -73,8 +73,8 @@ namespace Combat.Shop
             (List<Relic> relics, List<Weapon> weapons) removedDupes = RemoveAllDuplicateItems();
             (List<Relic> relics, List<Weapon> weapons) possibleItems = GetPossibleItems(removedDupes);
 
-            Debug.Log($"Possible Relics: {string.Join(" | ", removedDupes.relics)}");
-            Debug.Log($"Possible Weapons: {string.Join(" | ", removedDupes.weapons)}");       
+            // Debug.Log($"Possible Relics: {string.Join(" | ", removedDupes.relics)}");
+            // Debug.Log($"Possible Weapons: {string.Join(" | ", removedDupes.weapons)}");       
 
             bool relicsPossible = possibleItems.relics.Count!=0;
             bool weaponsPossible = possibleItems.weapons.Count!=0;

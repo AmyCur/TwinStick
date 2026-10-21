@@ -22,7 +22,7 @@ namespace Inventory
             cooldown.CD();
         }
 
-        public void ForceTrigger() => OnTrigger();
+        public override void ForceTrigger() => OnTrigger();
 
         public TriggerCondition triggerCondition;
     }

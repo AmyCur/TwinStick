@@ -24,8 +24,8 @@ namespace Combat{
         protected bool PlayerInRange(){
 
             //! WARNING: Using this approach, enemies can shoot through walls
-            return Vector3.Distance(transform.position, GameObject.Find("Player").transform.position) <= attackRange;
-                
+            if(gameObject!=null) return Vector3.Distance(transform.position, GameObject.Find("Player").transform.position) <= attackRange;
+            return false;
          
         }
 

@@ -22,6 +22,7 @@ namespace Combat
             }
             set{}
         }
-        
+
+        public override void ForceTrigger() => OnAttack();
     }
 }

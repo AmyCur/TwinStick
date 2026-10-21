@@ -1,12 +1,22 @@
 using System.Threading.Tasks;
+using Combat;
 using Player;
 using UnityEngine;
 
 namespace Inventory{
+
+    public enum InventoryTypes
+    {
+        relic,
+        weapon
+    }
+
     [CreateAssetMenu(fileName = "New FT Relic", menuName = "Inventory/Relic/Create/Force Trigger Relic")]
     public class ForceTriggerRelic : Relic{
        
         public string[] forceTriggerSlots;
+        [SerializeField] InventoryTypes triggerType;
+        
 
         public int ReadForceTriggerSlot(string slot){
             if(slot.Length == 1) return int.Parse(slot);
@@ -28,7 +38,10 @@ namespace Inventory{
             foreach(string str in forceTriggerSlots){
                 int index = ReadForceTriggerSlot(str);
                 Relic[] invRelic = InventoryController.Instance.relicInventory.inventory;
-                if(index <= invRelic.Length && index>=0 && invRelic[index]!=null) invRelic[index].ForceTrigger();
+                Weapon[] invWeapon = InventoryController.Instance.weaponInventory.inventory;
+                
+                if(triggerType==InventoryTypes.relic && index <= invRelic.Length && index>=0 && invRelic[index]!=null) invRelic[index].ForceTrigger();
+                if(triggerType==InventoryTypes.weapon && index <= invWeapon.Length && index>=0 && invWeapon[index]!=null) invWeapon[index].ForceTrigger();
             }
             
             base.OnTrigger();

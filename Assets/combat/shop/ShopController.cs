@@ -14,8 +14,8 @@ namespace Combat.Shop{
         WaitForSeconds TimeBetweenItemLoad = new(0.3f);
         
         [Header("Possible Items")]
-        [SerializeField] List<Relic> possibleRelics = new();
-        [SerializeField] List<Weapon> possibleWeapons = new();
+        static List<Relic> possibleRelics = new();
+        static List<Weapon> possibleWeapons = new();
 
         [Header("Weights")]
         [SerializeField] float relicWeight = 60;
@@ -24,7 +24,9 @@ namespace Combat.Shop{
         [SerializeField] GameObject shopUI;        
 
         IEnumerator CreateShopMenu(){
-            shopUI.SetActive(true);
+            
+            shopUI.SetActive(true); 
+
             foreach(ShopUIItem sui in shopUIItems){
                 Debug.Log("hi");
                 sui.itemData.item=null;
@@ -32,6 +34,7 @@ namespace Combat.Shop{
                 if(ri!=null) sui.CreateItemCard(ri);
                 yield return TimeBetweenItemLoad;            
             }
+                        
             // TimeUtil.PauseGame();
         }
 
@@ -54,6 +57,9 @@ namespace Combat.Shop{
         }
         
         public void TriggerShop(){
+            foreach(BouncingBall b in GameObject.FindObjectsByType<BouncingBall>(FindObjectsSortMode.None)){
+                b.DestroyBall();
+            }
             StartCoroutine(CreateShopMenu());
         }
 
@@ -62,6 +68,9 @@ namespace Combat.Shop{
                 sui.Init();
             }
             shopUI.SetActive(false);
+
+            possibleRelics = Resources.LoadAll<Relic>("relics").ToList();
+            possibleWeapons = Resources.LoadAll<Weapon>("weapons").ToList();
         }
     }
 }

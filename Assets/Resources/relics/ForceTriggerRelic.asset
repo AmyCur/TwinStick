@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccd44f64aeed12f419ded01373a5191c, type: 3}
-  m_Name: New Speed Relic
+  m_Name: ForceTriggerRelic
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.SpeedRelic
   description: 
   sprite: {fileID: 0}
   cooldown:
-    CDTime: 3
-    onCD: 0
+    CDTime: 0.1
+    onCD: 1
     cdBar: {fileID: 0}
-  triggerCondition: 1
+  index: 0
+  triggerCondition: 2
   forceTriggerSlots:
-  - 2
+  - 0
+  triggerType: 1
