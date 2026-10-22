@@ -16,20 +16,16 @@ MonoBehaviour:
   sprite: {fileID: 0}
   cooldown:
     CDTime: 0.1
-    onCD: 1
+    onCD: 0
+    cdBar: {fileID: 0}
+  forceTriggerCooldown:
+    CDTime: 10
+    onCD: 0
     cdBar: {fileID: 0}
   index: 0
   rarity: 0
-  triggerCondition: 2
+  triggerCondition: 1
   forceTriggerConditions:
-  - triggerType: 0
-    index: 0
-    offset: 0
-    rarity: 1
-  - triggerType: 2
-    index: 0
-    offset: 0
-    rarity: 1
   - triggerType: 2
     index: 0
     offset: 0

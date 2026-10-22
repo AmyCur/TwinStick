@@ -51,7 +51,7 @@ namespace Inventory{
                     break;
                     case ForceTriggerType.rarity:
                         foreach(Item i in targetInventory){
-                            if(i.rarity==ftc.rarity) i.ForceTrigger();
+                            if(i!=null && i.rarity==ftc.rarity) i.ForceTrigger();
                         }
                     break;
                     case ForceTriggerType.random:

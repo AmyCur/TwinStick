@@ -23,6 +23,13 @@ namespace Combat
             set{}
         }
 
-        public override void ForceTrigger() => OnAttack();
+        public override void ForceTrigger()
+        {
+            if (!forceTriggerCooldown.onCD)
+            {
+                OnAttack();
+                forceTriggerCooldown.CD();            
+            }
+        }
     }
 }

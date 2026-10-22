@@ -22,7 +22,13 @@ namespace Inventory
             cooldown.CD();
         }
 
-        public override void ForceTrigger() => OnTrigger();
+        public override void ForceTrigger(){
+            if (!forceTriggerCooldown.onCD)
+            {
+                OnTrigger();
+                forceTriggerCooldown.CD();            
+            }
+        }
 
         public TriggerCondition triggerCondition;
     }

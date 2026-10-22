@@ -10,6 +10,7 @@ namespace Inventory{
 
         [Header("Functionality")]
         public Cooldown cooldown = new(null);
+        public Cooldown forceTriggerCooldown = new(null, 10f);
         public int index;
         public Rarity rarity=Rarity.common;
 

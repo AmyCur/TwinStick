@@ -29,10 +29,18 @@ namespace Inventory
             onCD=false;
         }
 
+        IEnumerator HandleNoBarCD()
+        {
+            onCD=true;
+            yield return new WaitForSeconds(CDTime/100f);
+            onCD=false;
+        }
+
 
         public void CD(){
             if(cdRoutine!=null) PlayerController.Instance.StopCoroutine(cdRoutine);
-            cdRoutine = PlayerController.Instance.StartCoroutine(HandleCD());
+            if(cdBar!=null) cdRoutine = PlayerController.Instance.StartCoroutine(HandleCD());
+            else cdRoutine = PlayerController.Instance.StartCoroutine(HandleNoBarCD());
         }
 
         public Cooldown(Image cdBar, float CDTime=3f, bool onCD = false){

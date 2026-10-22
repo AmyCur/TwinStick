@@ -132,6 +132,14 @@ namespace Inventory{
         public void Init(){
             UpdateUI();
             AddSceneSlotData();
+
+            foreach(T t in inventory)
+            {
+                if (t != null){
+                    t.cooldown.onCD=false;
+                    t.forceTriggerCooldown.onCD=false;
+                }
+            }
         }
     }
 }
