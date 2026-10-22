@@ -35,7 +35,7 @@ namespace Combat.Shop{
                 yield return TimeBetweenItemLoad;            
             }
                         
-            // TimeUtil.PauseGame();
+            TimeUtil.PauseGame();
         }
 
         public IEnumerator CloseShopMenu(){
