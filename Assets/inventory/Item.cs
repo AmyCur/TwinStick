@@ -1,3 +1,4 @@
+using Combat;
 using UnityEngine;
 
 namespace Inventory{
@@ -10,6 +11,7 @@ namespace Inventory{
         [Header("Functionality")]
         public Cooldown cooldown = new(null);
         public int index;
+        public Rarity rarity=Rarity.common;
 
         public abstract void ForceTrigger();
     }

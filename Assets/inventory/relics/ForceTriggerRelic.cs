@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Combat;
 using Player;
@@ -5,8 +7,7 @@ using UnityEngine;
 
 namespace Inventory{
 
-    public enum InventoryTypes
-    {
+    public enum InventoryTypes{
         relic,
         weapon
     }
@@ -14,9 +15,9 @@ namespace Inventory{
     [CreateAssetMenu(fileName = "New FT Relic", menuName = "Inventory/Relic/Create/Force Trigger Relic")]
     public class ForceTriggerRelic : Relic{
        
-        public string[] forceTriggerSlots;
+        public ForceTriggerCondition[] forceTriggerConditions;
         [SerializeField] InventoryTypes triggerType;
-        
+        Item[] targetInventory => triggerType == InventoryTypes.relic ? InventoryController.Instance.relicInventory.inventory : InventoryController.Instance.weaponInventory.inventory;
 
         public int ReadForceTriggerSlot(string slot){
             if(slot.Length == 1) return int.Parse(slot);
@@ -35,13 +36,30 @@ namespace Inventory{
         }
 
         public override void OnTrigger(){
-            foreach(string str in forceTriggerSlots){
-                int index = ReadForceTriggerSlot(str);
-                Relic[] invRelic = InventoryController.Instance.relicInventory.inventory;
-                Weapon[] invWeapon = InventoryController.Instance.weaponInventory.inventory;
-                
-                if(triggerType==InventoryTypes.relic && index <= invRelic.Length && index>=0 && invRelic[index]!=null) invRelic[index].ForceTrigger();
-                if(triggerType==InventoryTypes.weapon && index <= invWeapon.Length && index>=0 && invWeapon[index]!=null) invWeapon[index].ForceTrigger();
+            foreach(ForceTriggerCondition ftc in forceTriggerConditions){
+                switch (ftc.triggerType)
+                {
+                    case ForceTriggerType.index:
+                        if(targetInventory[ftc.index]!=null) targetInventory[ftc.index].ForceTrigger();
+                    break;
+                    case ForceTriggerType.offset:
+                        if(
+                            targetInventory[index+ftc.offset] != null && 
+                            targetInventory.Length > index+ftc.offset && 
+                            index+ftc.offset > 0
+                        ) targetInventory[index+ftc.offset].ForceTrigger();
+                    break;
+                    case ForceTriggerType.rarity:
+                        foreach(Item i in targetInventory){
+                            if(i.rarity==ftc.rarity) i.ForceTrigger();
+                        }
+                    break;
+                    case ForceTriggerType.random:
+                        // Get all non null items and then get a random one of them
+                        int random =  Random.Range(0, targetInventory.OfType<Item>().Count());
+                        targetInventory.OfType<Item>().ToList()[random].ForceTrigger();                        
+                    break;
+                }
             }
             
             base.OnTrigger();
